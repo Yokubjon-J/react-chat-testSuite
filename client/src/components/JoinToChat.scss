@@ -1,0 +1,37 @@
+*{
+    box-sizing: border-box;
+ }
+  
+html{height: 100%;}
+body{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0f9b0f, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  .form {
+    width: 50vw;
+    text-align: center;
+    //font-size: min(max(1rem, 4vw), 22px);
+    input, button {
+      display: block;
+      margin: 10px calc(100% - 98%); 
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 96%;
+    }
+    & h2 {
+      margin: 5px 0 0 0;
+      //transform: translateX(10px); 
+    }
+    //margin: 50px;
+    background: orange;
+    position: relative;
+    overflow: hidden;//very important!
+  }
