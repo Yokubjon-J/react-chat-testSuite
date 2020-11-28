@@ -25,13 +25,29 @@ const ChatInterface = ({location}) => {
         //     socket.emit('disconnect');
         //     socket.off();
         // }
-    }, [ENDPOINT, location.search])
+    }, [])
 
     useEffect(()=>{
         socket.on('message', (message)=>{
             return setMessages([...messages, message]);
         })
     }, [messages]);
+
+    // useEffect(() => {
+    //     if (!socket) {
+    //       socket = io(ENDPOINT);
+    //     }
+    //     const messageHandler = (message) => {
+    //       setMessages(messages => [...messages, message]);
+    //     }
+    //     socket.on('message', messageHandler);
+      
+    //     // clean up message handler
+    //     return () => {
+    //       socket.off('message', messageHandler);
+    //     } 
+    // }
+    //   , []);
 
     const sendMessage = (e) => {
         e.preventDefault();

@@ -1,4 +1,4 @@
-const users = [];
+const users = []; 
 
 const addUser = ({id, username, chatroom}) => {
     // id = id;
@@ -10,7 +10,7 @@ const addUser = ({id, username, chatroom}) => {
         return {error: 'username is taken'};
     }
     const user = {id,username,chatroom}
-    users.push(user);
+    users.push(user); 
     console.log(users)
     return {user};
 }
