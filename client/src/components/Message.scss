@@ -1,0 +1,32 @@
+.mssgContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 5px 0 5px;
+  overflow: hidden;
+  &.left {
+    .author::after{
+      content: '';
+    }
+  }
+}
+
+.box {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 10px;
+  overflow: hidden;
+  p {
+    word-wrap: break-word; //when your text doesn't fit the width of chat interface
+  }
+  &.blue {
+    background-color: royalblue;
+  }
+  &.white {
+    background: silver;
+  }
+}
+
+.author::after {
+  content: ':';
+}

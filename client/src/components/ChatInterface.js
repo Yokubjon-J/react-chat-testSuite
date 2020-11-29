@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
+import MessageBoard from './MessageBoard';
 const ENDPOINT = 'http://localhost:5000/';
 let socket;
 
 const ChatInterface = ({location}) => {
     const [username, setUsername] = useState('');
     const [chatroom, setChatroom] = useState('');
-    const [messages, setMessages] = useState('');
+    const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
-    socket = io(ENDPOINT);
+    const [users, setUsers] = useState('');
+    
     useEffect(()=>{
         const { username, chatroom } = queryString.parse(location.search);
+        socket = io(ENDPOINT);
         setUsername(username);
         setChatroom(chatroom);
         socket.emit('joined', {username, chatroom}, (error)=>{
@@ -19,36 +22,25 @@ const ChatInterface = ({location}) => {
         });
 
         console.log(socket)
-        console.log('location.search changed: ', location.search)
+        console.log('location.search: ', location.search)
 
-        // return ()=>{
-        //     socket.emit('disconnect');
-        //     socket.off();
-        // }
-    }, [])
+        return () => {
+            socket.emit('disconnect');
+            socket.off();
+        }
+    }, [ENDPOINT, location.search])
 
     useEffect(()=>{
         socket.on('message', (message)=>{
-            return setMessages([...messages, message]);
-        })
-    }, [messages]);
+            return setMessages(messages => [...messages, message]);
+        });
 
-    // useEffect(() => {
-    //     if (!socket) {
-    //       socket = io(ENDPOINT);
-    //     }
-    //     const messageHandler = (message) => {
-    //       setMessages(messages => [...messages, message]);
-    //     }
-    //     socket.on('message', messageHandler);
-      
-    //     // clean up message handler
-    //     return () => {
-    //       socket.off('message', messageHandler);
-    //     } 
-    // }
-    //   , []);
+        socket.on("roomData", ({ users }) => {
+            setUsers(users);
+          });
+    }, []);
 
+    
     const sendMessage = (e) => {
         e.preventDefault();
         if (message) {
@@ -60,12 +52,17 @@ const ChatInterface = ({location}) => {
 
     return (
         <div>
-            <input value={message}
+            <MessageBoard chatroom={chatroom} message={message} 
+                setMessage={setMessage} sendMessage={sendMessage} 
+                messages={messages} username={username}
+            />
+            {/* <Input /> */}
+            {/* <input value={message}
                 onChange={(e)=>{
                     e.preventDefault();
                     setMessage(e.target.value);}}
                 
-                onKeyPress={(e)=>{return e.key==='Enter'?sendMessage(e):null;}} />
+                onKeyPress={(e)=>{return e.key==='Enter'?sendMessage(e):null;}} /> */}
         </div>
     )
 }

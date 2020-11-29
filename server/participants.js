@@ -27,7 +27,7 @@ const getUser = (id) => {
     return users.find((user)=>{return user.id===id});
 }
 
-const getUserInRoom = () => {
+const getUserInRoom = (chatroom) => {
     users.filter((user)=>{return user.chatroom === chatroom});
 }
 
