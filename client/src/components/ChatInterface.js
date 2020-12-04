@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 import MessageBoard from './MessageBoard';
-const ENDPOINT = 'http://localhost:5000/';
+const ENDPOINT = 'https://my-first-react-chat-app.herokuapp.com/';
 let socket;
 
 const ChatInterface = ({location}) => {
